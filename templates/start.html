@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style_quiz.css')}}">
+    <title>Вікторина</title>
+</head>
+<body>
+    <h1>Оберіть вікторину:</h1>
+    <form method="POST" action="/">
+        <select name='quiz'>
+            {% for id, name in quiz_list %}
+            <option value={{id}}>{{name}}</option>
+            {% endfor %}
+        </select>
+        <p><button type="submit" value="Вибрати">Вибрати</button></p>
+    </form>
+    <img src="{{ url_for('static', filename='images/img1.jpeg')}}">
+</body>
+</html>

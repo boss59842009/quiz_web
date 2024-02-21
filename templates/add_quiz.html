@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати вікторину та запитання</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_quiz.css')}}">
+</head>
+<body>
+
+    <h1>Введіть данні</h1>
+    <form method="post" action="/add_quiz">
+        <p>
+            <label for="quiz">Введіть назву вікторини</label>
+            <input type="text" id="quiz" name="quiz_name" placeholder="Назва вікторини" size="50" required>
+        </p>
+        <p>
+            <label for="quest">Введіть запитання</label>
+            <input type="text" id="quest" name="question_info[]" placeholder="Запитання" size="50" required>
+        </p>
+        <p>
+            <label for="right">Введіть правильну відповідь</label>
+            <input type="text" id="right" name="question_info[]" placeholder="Правильна відповідь" size="50" required>
+        </p>
+        <p>
+            <label for="wrong1">Введіть 1 неправильну відповідь</label>
+            <input type="text" id="wrong1" name="question_info[]" placeholder="Неправильна відповідь 1" size="50" required>
+        </p>
+        <p>
+            <label for="wrong2">Введіть 2 неправильну відповідь</label>
+            <input type="text" id="wrong2" name="question_info[]" placeholder="Неправильна відповідь 2" size="50" required>
+        </p>
+        <p>
+            <label for="wrong3">Введіть 3 неправильну відповідь</label>
+            <input type="text" id="wrong3" name="question_info[]" placeholder="Неправильна відповідь 3" size="50" required>
+        </p>
+        <button type="submit">Додати</button>
+    </form>
+</body>
+</html>

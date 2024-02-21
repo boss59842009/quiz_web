@@ -1,0 +1,26 @@
+body {
+    background: url(../images/background.jpg) no-repeat center center fixed;
+    background-size: 100% 100%;
+    color: #C5B78C;
+    text-align: center;
+}
+label {
+    font-size: 14pt;
+    font-weight: bold;
+    color: aliceblue;
+}
+button {
+    background-color: #F2C077;
+    border: none;
+    color: white;
+    padding: 5px 30px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+a {
+    text-decoration: none;
+    color:white;
+    font-size: 14pt;
+    font-weight: bold;
+}
