@@ -6,6 +6,7 @@ cursor = None
 
 
 def open():
+    '''Відкриття БД'''
     global conn, cursor
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
@@ -75,9 +76,8 @@ def add_questions():
         ('Яким стане зелена скеля, якщо впаде в Червоне море?', 'Мокрим', 'Червоним', 'Не зміниться', 'Фіолетовим'),
         ('Якою рукою краще розмішувати чай?', 'Ложкою', 'Правою', 'Лівою', 'Любою'),
         ('Що не має довжини, глибини, ширини, висоти, а можна виміряти?', 'Час', 'Дурність', 'Море', 'Повітря'),
-        ('Коли сіткою можна витягнути воду?', 'Коли вода замерзла', 'Коли немає риби', 'Коли спливла золота рибка',
-         'Коли сітка порвалася'),
-        ('Що більше слона і нічого не важить?', 'Тінь слона', 'Повітряна куля', 'Парашут', 'Хмара')
+        ('Коли сіткою можна витягнути воду?', 'Коли вода замерзла', 'Коли немає риби', 'Коли спливла золота рибка', 'Коли сітка порвалася'),
+        ('Що більше слона і нічого не важить?', 'Тінь слона', 'Повітряна куля', 'Парашут', 'Хмара'),
     ]
     open()
     cursor.executemany('INSERT INTO questions (question, answer, wrong1, wrong2, wrong3) VALUES (?, ?, ?, ?, ?)', questions)
@@ -98,14 +98,27 @@ def add_links():
     close()
 
 
+def get_question_after(question_id=0, quiz_id=1):# 3, 4
+    open()
+    cursor.execute('''SELECT quiz_content.id, questions.question, questions.answer, 
+                   questions.wrong1, questions.wrong2, questions.wrong3
+                   FROM quiz_content, questions
+                   WHERE quiz_content.question_id == questions.id
+                   AND quiz_content.id > ? AND quiz_content.quiz_id == ?
+                   ORDER BY quiz_content.id''', [question_id, quiz_id])
+    result = cursor.fetchone()
+    close()
+    print(result)
+
+
+
 def main():
     # clear_db()
     # create()
     # add_quizes()
     # add_questions()
-    add_links()
-    pass
-
+    # add_links()
+   get_question_after(11, 4)
 
 main()
 
