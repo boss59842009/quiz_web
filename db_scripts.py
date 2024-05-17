@@ -35,6 +35,12 @@ def create():
                 wrong2 VARCHAR,
                 wrong3 VARCHAR)''')
 
+    do('''CREATE TABLE quiz_content(
+                    id INTEGER PRIMARY KEY,
+                    quiz_id INTEGER,
+                    question_id INTEGER,
+                    FOREIGN KEY (quiz_id) REFERENCES quiz (id),
+                    FOREIGN KEY (question_id) REFERENCES questions (id))''')
     close()
 
 
@@ -44,6 +50,8 @@ def clear_db():
     query = '''DROP TABLE IF EXISTS questions'''
     do(query)
     query = '''DROP TABLE IF EXISTS quiz'''
+    do(query)
+    query = '''DROP TABLE IF EXISTS quiz_content'''
     do(query)
     close()
 
@@ -61,11 +69,41 @@ def add_quizes():
     close()
 
 
+def add_questions():
+    questions = [
+        ('Скільки місяців на рік мають 28 днів?', 'Всі', 'Один', 'Жодного', 'Два'),
+        ('Яким стане зелена скеля, якщо впаде в Червоне море?', 'Мокрим', 'Червоним', 'Не зміниться', 'Фіолетовим'),
+        ('Якою рукою краще розмішувати чай?', 'Ложкою', 'Правою', 'Лівою', 'Любою'),
+        ('Що не має довжини, глибини, ширини, висоти, а можна виміряти?', 'Час', 'Дурність', 'Море', 'Повітря'),
+        ('Коли сіткою можна витягнути воду?', 'Коли вода замерзла', 'Коли немає риби', 'Коли спливла золота рибка',
+         'Коли сітка порвалася'),
+        ('Що більше слона і нічого не важить?', 'Тінь слона', 'Повітряна куля', 'Парашут', 'Хмара')
+    ]
+    open()
+    cursor.executemany('INSERT INTO questions (question, answer, wrong1, wrong2, wrong3) VALUES (?, ?, ?, ?, ?)', questions)
+    conn.commit()
+    close()
+
+
+def add_links():
+    open()
+    cursor.execute("PRAGMA foreign_keys=on")
+    answer = input("Додати звʼязок? (y/n)")
+    while answer != 'n':
+        quiz_id = int(input("Введіть номер вікторини"))
+        question_id = int(input("Введіть номер запитання"))
+        cursor.execute('INSERT INTO quiz_content (quiz_id, question_id) VALUES (?, ?)', [quiz_id, question_id])
+        conn.commit()
+        answer = input("Додати звʼязок? (y/n)")
+    close()
+
 
 def main():
     # clear_db()
     # create()
-    add_quizes()
+    # add_quizes()
+    # add_questions()
+    add_links()
     pass
 
 
