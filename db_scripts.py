@@ -108,8 +108,17 @@ def get_question_after(question_id=0, quiz_id=1):# 3, 4
                    ORDER BY quiz_content.id''', [question_id, quiz_id])
     result = cursor.fetchone()
     close()
-    print(result)
+    return result
 
+
+
+def get_quizes():
+    open()
+    cursor.execute('SELECT * FROM quiz ORDER BY id')
+    quizes = cursor.fetchall()
+    print(quizes)
+    close()
+    return quizes
 
 
 def main():
@@ -118,7 +127,9 @@ def main():
     # add_quizes()
     # add_questions()
     # add_links()
-   get_question_after(11, 4)
+    # get_question_after(11, 4)
+    get_quizes()
+
 
 main()
 
