@@ -110,8 +110,6 @@ def get_question_after(question_id=0, quiz_id=1):# 3, 4
     close()
     return result
 
-
-
 def get_quizes():
     open()
     cursor.execute('SELECT * FROM quiz ORDER BY id')
@@ -119,6 +117,25 @@ def get_quizes():
     print(quizes)
     close()
     return quizes
+
+
+def check_ans(answer, quest_id):
+    open()
+    cursor.execute('''
+        SELECT questions.answer 
+        FROM quiz_content, questions
+        WHERE quiz_content.id == ?
+        AND quiz_content.question_id == questions.id''', [quest_id])
+    result = cursor.fetchone()
+    conn.commit()
+    close()
+    if answer == result[0]:
+        return True
+    elif answer is None:
+        return False
+    else:
+        return False
+
 
 
 def main():

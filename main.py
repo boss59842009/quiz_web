@@ -28,7 +28,6 @@ def index():
 
 
 def question_form(question):
-    print(question)
     answers_list = [
         question[2],
         question[3],
@@ -39,18 +38,29 @@ def question_form(question):
     return render_template('test.html', question_id=question[0], quest=question[1], ans_list=answers_list)
 
 
+def check_answer():
+    answer = request.form.get('ans_name')
+    quest_id = request.form.get('q_id')
+    session['last_question'] = quest_id
+    session['total'] += 1
+    if db_scripts.check_ans(answer, quest_id):
+        session['right_ans'] += 1
+    else:
+        session['wrong_ans'] += 1
+
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    new_question = db_scripts.get_question_after(session['last_question'], session['quiz'])
     if not ('quiz' in session) or int(session['quiz']) < 0:
         return redirect(url_for('index'))
     else:
-        if request.method == 'GET':
-            return question_form(new_question)
+        if request.method == 'POST':
+            check_answer()
+        new_question = db_scripts.get_question_after(session['last_question'], session['quiz'])
+        if new_question is None or len(new_question) == 0:
+            return redirect(url_for('result'))
         else:
-            answer = request.form.get('ans_name')
-            print(answer)
-            return redirect(url_for('index'))
+            return question_form(new_question)
 
 
 @app.route('/result')

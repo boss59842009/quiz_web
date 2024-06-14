@@ -9,12 +9,11 @@
 <body>
     <h2>{{ quest }}</h2>
     <form method="post" action="/test">
-        <div>
-            {% for ans in ans_list %}
-                <input type="radio" name="ans_name" value="{{ ans }}">{{ ans }}
-            {% endfor %}
-            <button type="submit">Відповісти</button>
-        </div>
+        <input type="hidden" name="q_id" value="{{ question_id }}">
+        {% for ans in ans_list %}
+            <input type="radio" name="ans_name" value="{{ ans }}">{{ ans }}
+        {% endfor %}
+        <button type="submit">Відповісти</button>
     </form>
 </body>
 </html>
