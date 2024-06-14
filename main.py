@@ -65,12 +65,15 @@ def test():
 
 @app.route('/result')
 def result():
-    return '<h1>Result page</h1>'
+    res = render_template('result.html', total=session['total'], right=session['right_ans'], wrong=session['wrong_ans'])
+    session.clear()
+    return res
+    
 
 
 @app.route('/add_quiz')
 def add_quiz():
-    return '<h1>Add quiz page</h1>'
+    return render_template('add_quiz.html')
 
 
 app.config['SECRET_KEY'] = '12345678'

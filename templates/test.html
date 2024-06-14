@@ -7,13 +7,20 @@
     <title>Сторінка з тестуванням</title>
 </head>
 <body>
-    <h2>{{ quest }}</h2>
-    <form method="post" action="/test">
-        <input type="hidden" name="q_id" value="{{ question_id }}">
-        {% for ans in ans_list %}
-            <input type="radio" name="ans_name" value="{{ ans }}">{{ ans }}
-        {% endfor %}
-        <button type="submit">Відповісти</button>
-    </form>
+    <div>
+        <h2>{{ quest }}</h2>
+        <form method="post" action="/test">
+            <input type="hidden" name="q_id" value="{{ question_id }}">
+            {% for ans in ans_list %}
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ans_name" id="exampleRadios1" value="{{ ans }}" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    {{ ans }}
+                  </label>
+                </div>
+            {% endfor %}
+            <button class="btn btn-light" type="submit">Відповісти</button>
+        </form>
+    </div>
 </body>
 </html>

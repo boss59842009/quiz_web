@@ -126,7 +126,7 @@ def check_ans(answer, quest_id):
         FROM quiz_content, questions
         WHERE quiz_content.id == ?
         AND quiz_content.question_id == questions.id''', [quest_id])
-    result = cursor.fetchone()
+    result = cursor.fetchone()  # ('ложкою', )
     conn.commit()
     close()
     if answer == result[0]:
