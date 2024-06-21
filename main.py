@@ -27,7 +27,7 @@ def index():
         return redirect(url_for('test'))
 
 
-def question_form(question):
+def question_form(question): #(4, "Якесь питання", "Правильна відповідь", "Неправ1", "Неправ2", "Неправ3")
     answers_list = [
         question[2],
         question[3],
@@ -69,7 +69,6 @@ def result():
     session.clear()
     return res
     
-
 
 @app.route('/add_quiz')
 def add_quiz():
