@@ -8,6 +8,22 @@
     <title>Сторінка з додаванням вікторин</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{ url_for('index') }}">Головна</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('add_quiz') }}">Додати вікторину</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <h1>Введіть дані вікторини і запитання</h1>
     <form method="POST" action="/add_quiz">
         <div class="mb-3">
             <label for="quiz_name" class="form-label">Назва вікторини:</label>
@@ -15,9 +31,25 @@
         </div>
         <div class="mb-3">
             <label for="question_name" class="form-label">Запитання:</label>
-            <input type="text" class="form-control" id="question_name" name="question" placeholder="Введіть запитання">
+            <input type="text" class="form-control" id="question_name" name="question[]" placeholder="Введіть запитання">
         </div>
-
+        <div class="mb-3">
+            <label for="answer_text" class="form-label">Правильна відповідь:</label>
+            <input type="text" class="form-control" id="answer_text" name="question[]" placeholder="Введіть правильну відповідь">
+        </div>
+        <div class="mb-3">
+            <label for="wrong1_text" class="form-label">Неправильна відповідь 1:</label>
+            <input type="text" class="form-control" id="wrong1_text" name="question[]" placeholder="Введіть неправильну відповідь">
+        </div>
+        <div class="mb-3">
+            <label for="wrong2_text" class="form-label">Неправильна відповідь 2:</label>
+            <input type="text" class="form-control" id="wrong2_text" name="question[]" placeholder="Введіть неправильну відповідь">
+        </div>
+        <div class="mb-3">
+            <label for="wrong3_text" class="form-label">Неправильна відповідь 3:</label>
+            <input type="text" class="form-control" id="wrong3_text" name="question[]" placeholder="Введіть неправильну відповідь">
+        </div>
+        <p><button type="submit" class="btn btn-dark" value="Додати">Додати</button></p>
     </form>
 </body>
 </html>

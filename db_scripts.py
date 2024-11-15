@@ -86,6 +86,7 @@ def add_questions():
 
 
 def add_links():
+    '''Додає звʼязки вікторини і запитання'''
     open()
     cursor.execute("PRAGMA foreign_keys=on")
     answer = input("Додати звʼязок? (y/n)")
@@ -99,6 +100,7 @@ def add_links():
 
 
 def get_question_after(question_id=0, quiz_id=1):# 3, 4
+    '''Повертає наступне запитання до вибраної вікторини'''
     open()
     cursor.execute('''SELECT quiz_content.id, questions.question, questions.answer, 
                    questions.wrong1, questions.wrong2, questions.wrong3
@@ -111,6 +113,7 @@ def get_question_after(question_id=0, quiz_id=1):# 3, 4
     return result
 
 def get_quizes():
+    '''Отримуємо всі вікторини'''
     open()
     cursor.execute('SELECT * FROM quiz ORDER BY id')
     quizes = cursor.fetchall()
@@ -120,6 +123,7 @@ def get_quizes():
 
 
 def check_ans(answer, quest_id):
+    """Перевіряє чи правильно ми відповіли на питання"""
     open()
     cursor.execute('''
         SELECT questions.answer 
@@ -136,6 +140,33 @@ def check_ans(answer, quest_id):
     else:
         return False
 
+
+def insert_quiz(quiz):
+    """Записує вікторину в БД"""
+    open()
+    cursor.execute('INSERT INTO quiz (name) VALUES (?)', [quiz])
+    conn.commit()
+    close()
+
+
+def insert_question(question_list):
+    """Записує дані запитання в БД"""
+    open()
+    cursor.execute('INSERT INTO questions (question, answer, wrong1, wrong2, wrong3) VALUES (?, ?, ?, ?, ?)', question_list)
+    conn.commit()
+    close()
+
+
+def add_link(quiz_name):
+    """Записує звʼязок між вікториною і запитанням в БД"""
+    open()
+    cursor.execute('SELECT id FROM quiz WHERE name == ?', [quiz_name])
+    quiz_id = cursor.fetchone()
+    cursor.execute('SELECT max(id) FROM questions')
+    question_id = cursor.fetchone()
+    cursor.execute("INSERT INTO quiz_content (quiz_id, question_id) VALUES (?, ?)", [quiz_id[0], question_id[0]])
+    conn.commit()
+    close()
 
 
 def main():
